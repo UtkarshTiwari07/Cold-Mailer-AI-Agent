@@ -1,0 +1,85 @@
+version: "3.9"
+
+# Local dev / single-operator deployment. See DESIGN.md §15 for the scaling
+# path off this file (managed Postgres, multiple worker replicas, etc).
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: coldmailer
+      POSTGRES_PASSWORD: coldmailer
+      POSTGRES_DB: coldmailer
+    ports: ["5432:5432"]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./migrations:/migrations:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U coldmailer"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  searxng:
+    image: searxng/searxng:latest
+    ports: ["8888:8080"]
+    environment:
+      SEARXNG_BASE_URL: http://localhost:8888/
+    volumes:
+      - ./deploy/searxng:/etc/searxng:rw
+    restart: unless-stopped
+
+  app:
+    build: .
+    command: uvicorn cold_mailer.web.app:app --host 0.0.0.0 --port 8000 --reload
+    env_file: .env
+    environment:
+      CM_DB__DSN: postgresql://coldmailer:coldmailer@postgres:5432/coldmailer
+      CM_REDIS__URL: redis://redis:6379/0
+      CM_SEARCH__SEARXNG_URL: http://searxng:8080
+    ports: ["8000:8000"]
+    volumes:
+      - .:/app
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+
+  worker:
+    build: .
+    command: arq cold_mailer.pipeline.worker.WorkerSettings
+    env_file: .env
+    environment:
+      CM_DB__DSN: postgresql://coldmailer:coldmailer@postgres:5432/coldmailer
+      CM_REDIS__URL: redis://redis:6379/0
+      CM_SEARCH__SEARXNG_URL: http://searxng:8080
+    volumes:
+      - .:/app
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+
+  # Optional observability stack. `docker compose --profile obs up` to include.
+  langfuse:
+    image: langfuse/langfuse:2
+    profiles: ["obs"]
+    ports: ["3000:3000"]
+    environment:
+      DATABASE_URL: postgresql://coldmailer:coldmailer@postgres:5432/langfuse
+      NEXTAUTH_SECRET: dev-only-change-me
+      SALT: dev-only-change-me
+      NEXTAUTH_URL: http://localhost:3000
+    depends_on:
+      postgres: { condition: service_healthy }
+
+volumes:
+  pgdata:

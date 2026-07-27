@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}{{ lead.company_name or lead.domain }} — draft review{% endblock %}
+{% block content %}
+<h1>{{ lead.company_name or lead.domain }}</h1>
+<p class="muted">{{ lead.display_name or lead.email }} &middot; {{ lead.domain }} &middot; status: {{ lead.lead_status }}</p>
+
+<div class="card">
+  <h2>Fit analysis</h2>
+  {% if lead.score %}<p><span class="badge {{ lead.tier }}">{{ lead.tier }} &middot; {{ lead.score }}/100</span></p>{% endif %}
+  <p><strong>Angle:</strong> {{ lead.angle }}</p>
+  {% if lead.hooks %}
+  <p><strong>Hooks:</strong></p>
+  <ul>{% for h in lead.hooks %}<li>{{ h.text }} <span class="muted">(strength {{ h.strength }})</span></li>{% endfor %}</ul>
+  {% endif %}
+  {% if lead.gaps %}
+  <p><strong>Gaps:</strong></p>
+  <ul>{% for g in lead.gaps %}<li>{{ g }}</li>{% endfor %}</ul>
+  {% endif %}
+</div>
+
+<div class="card">
+  <h2>QA report</h2>
+  <p>
+    <span class="badge {{ 'pass' if lead.lint_passed else 'fail' }}">lint {{ 'ok' if lead.lint_passed else 'FAIL' }}</span>
+    <span class="badge {{ 'pass' if lead.grounded else 'fail' }}">{{ 'grounded' if lead.grounded else 'UNGROUNDED' }}</span>
+    <span class="muted">regenerated {{ lead.regen_count }} time(s)</span>
+  </p>
+  {% for f in lead.lint_report %}
+  <p class="finding {{ f.severity }}">[{{ f.severity }}] {{ f.rule }}: {{ f.detail }}</p>
+  {% endfor %}
+  {% if lead.citations %}
+  <p><strong>Citations:</strong></p>
+  <ul>{% for c in lead.citations %}<li class="muted">{{ c.quote }}</li>{% endfor %}</ul>
+  {% endif %}
+</div>
+
+<form method="post" action="/drafts/{{ lead.lead_id }}/edit">
+  <div class="card">
+    <h2>Draft (touch 1)</h2>
+    <p><strong>Subject options:</strong> {{ lead.subject_options|join(' / ') }}</p>
+    <label>Subject<input type="text" name="subject" value="{{ lead.subject }}"></label>
+    <label>Body<textarea name="body" rows="12">{{ lead.body }}</textarea></label>
+    {% if lead.linkedin_note %}<p class="muted"><strong>LinkedIn note:</strong> {{ lead.linkedin_note }}</p>{% endif %}
+    <p>
+      <button type="submit" class="approve">Save edits &amp; approve</button>
+    </p>
+  </div>
+</form>
+
+<div class="card">
+  <form method="post" action="/drafts/{{ lead.lead_id }}/approve" style="display:inline">
+    <button type="submit" class="approve">Approve as-is</button>
+  </form>
+
+  <form method="post" action="/drafts/{{ lead.lead_id }}/reject" style="display:inline">
+    <select name="reject_category">
+      <option value="not_relevant">Not relevant</option>
+      <option value="wrong_facts">Wrong facts about company</option>
+      <option value="bad_tone">Tone/quality issue</option>
+      <option value="agency">Recruiting agency</option>
+      <option value="other">Other</option>
+    </select>
+    <input type="text" name="reject_reason" placeholder="Optional note">
+    <button type="submit" class="reject">Reject</button>
+  </form>
+</div>
+{% endblock %}

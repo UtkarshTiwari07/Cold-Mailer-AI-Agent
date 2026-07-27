@@ -1,0 +1,26 @@
+[
+  {
+    "id": "abc123-def456",
+    "text": "Senior Backend Engineer",
+    "categories": {
+      "team": "Platform Engineering",
+      "location": "Remote - US",
+      "department": "Engineering"
+    },
+    "hostedUrl": "https://jobs.lever.co/acme/abc123-def456",
+    "createdAt": 1750000000000,
+    "descriptionPlain": "We're looking for a senior backend engineer to join our platform team."
+  },
+  {
+    "id": "ghi789",
+    "text": "Product Designer",
+    "categories": {
+      "team": "Design",
+      "location": "San Francisco",
+      "department": "Product"
+    },
+    "hostedUrl": "https://jobs.lever.co/acme/ghi789",
+    "createdAt": 1751000000000,
+    "descriptionPlain": "Join our design team."
+  }
+]

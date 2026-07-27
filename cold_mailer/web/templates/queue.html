@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Approval queue ({{ leads|length }}){% endblock %}
+{% block content %}
+<h1>Approval queue</h1>
+<p class="muted">Drafts awaiting a human decision. Nothing sends until you approve it here.</p>
+
+{% if not leads %}
+<p>Nothing waiting for review right now.</p>
+{% endif %}
+
+{% for lead in leads %}
+<div class="card">
+  <div class="row">
+    <div>
+      <strong>{{ lead.company_name or lead.domain }}</strong>
+      <span class="muted">&middot; {{ lead.display_name or lead.email }}</span>
+    </div>
+    <div>
+      {% if lead.tier %}<span class="badge {{ lead.tier }}">{{ lead.tier }} &middot; {{ lead.score }}/100</span>{% endif %}
+      <span class="badge {{ 'pass' if lead.lint_passed else 'fail' }}">lint {{ 'ok' if lead.lint_passed else 'FAIL' }}</span>
+      <span class="badge {{ 'pass' if lead.grounded else 'fail' }}">{{ 'grounded' if lead.grounded else 'UNGROUNDED' }}</span>
+    </div>
+  </div>
+  <p><strong>{{ lead.subject }}</strong></p>
+  <p>{{ lead.body[:220] }}{% if lead.body|length > 220 %}&hellip;{% endif %}</p>
+  <p><a href="/drafts/{{ lead.lead_id }}">Review full draft &rarr;</a></p>
+</div>
+{% endfor %}
+{% endblock %}

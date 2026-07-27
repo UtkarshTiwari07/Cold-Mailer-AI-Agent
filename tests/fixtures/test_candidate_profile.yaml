@@ -1,0 +1,56 @@
+# Fictional test fixture — NOT real data about anyone. Used only to exercise
+# A5 (fit synthesis) and A7 (email generation) end-to-end in tests and
+# during development, since the real `profile/utkarsh.yaml` ships as an
+# honest placeholder template (see that file's header comment) and A5
+# correctly refuses to fabricate a fit angle from placeholder data.
+
+name: "Alex Chen"
+headline: "Backend engineer focused on developer tooling and CI/CD reliability"
+email: "alex.chen.testfixture@example.com"
+github_url: "https://github.com/example-test-fixture"
+linkedin_url: "https://linkedin.com/in/example-test-fixture"
+portfolio_url: null
+resume_path: null
+
+skills:
+  - Python
+  - Go
+  - PostgreSQL
+  - Kubernetes
+  - Ruby on Rails
+  - Distributed systems
+
+industries:
+  - DevTools
+  - Developer Platforms
+
+projects:
+  - name: "CI queue rebalancer"
+    description: >
+      Rebuilt a CI job scheduler that was serializing unrelated test suites
+      behind a single shared runner pool, causing multi-hour queue waits at
+      peak load.
+    technologies: ["Go", "Redis", "Kubernetes"]
+    outcome: "Cut median CI queue wait from 42 minutes to 6 minutes across ~400 daily builds."
+    url: null
+  - name: "Monolith-to-service extraction for billing"
+    description: >
+      Extracted a billing module out of a Rails monolith into an
+      independently deployable service without downtime, while the rest of
+      the monolith kept shipping daily releases.
+    technologies: ["Ruby on Rails", "PostgreSQL", "gRPC"]
+    outcome: "Zero-downtime migration; billing service now deploys independently ~10x more often than before."
+    url: null
+
+achievements:
+  - "Reduced production incident MTTR by 35% by building a shared on-call runbook and alert-correlation tool (2025)."
+
+career_goals: >
+  Looking for a senior backend or platform role at a company shipping a
+  complex product at scale, ideally one wrestling with monolith-to-service
+  or CI/CD scaling problems similar to what I've solved before.
+communication_style: "Direct, peer-to-peer, evidence-led."
+
+open_to:
+  - "Senior Backend Engineer"
+  - "Platform Engineer"
