@@ -1,0 +1,25 @@
+{
+  "data": {
+    "jobBoard": {
+      "teams": [{"id": "team1", "name": "Engineering"}],
+      "jobPostings": [
+        {
+          "id": "job1",
+          "title": "Staff Software Engineer",
+          "teamId": "team1",
+          "locationName": "Remote",
+          "employmentType": "FullTime",
+          "isListed": true
+        },
+        {
+          "id": "job2",
+          "title": "Unlisted Draft Role",
+          "teamId": "team1",
+          "locationName": "Remote",
+          "employmentType": "FullTime",
+          "isListed": false
+        }
+      ]
+    }
+  }
+}

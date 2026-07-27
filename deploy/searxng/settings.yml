@@ -1,0 +1,21 @@
+# Minimal override for the searxng/searxng Docker image. Mounted read-write
+# at /etc/searxng in docker-compose.yml (SearXNG rewrites some fields, e.g.
+# generating a secret key, on first boot).
+#
+# The one setting that matters for this project: JSON output is disabled by
+# default upstream (it's occasionally been used for scraping abuse against
+# public instances). This is a private, single-tenant instance used only by
+# our own agents, so enabling it here is the correct and expected trade-off.
+
+use_default_settings: true
+
+general:
+  instance_name: "cold-mailer-search"
+
+search:
+  formats:
+    - html
+    - json
+
+server:
+  secret_key: "change-me-in-production-set-via-env-or-secrets-manager"

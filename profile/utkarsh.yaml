@@ -1,0 +1,44 @@
+# Candidate profile — Agent 6's long-term memory.
+#
+# This is a TEMPLATE with placeholder values. The real resume, GitHub
+# activity, and project outcomes were not provided when this pipeline was
+# built (see DESIGN.md's build assumptions), so every value below is a
+# clearly-marked stand-in for the actual content this file should hold
+# before running real outreach. Replace every "REPLACE_ME" field; the
+# `projects` and `achievements` lists especially should come straight from
+# the resume/portfolio, with real, checkable numbers — A5 and A7 both quote
+# these directly in outreach, and a made-up metric in a cold email is worse
+# than a shorter, honest one.
+
+name: "Utkarsh Tiwari"
+headline: "REPLACE_ME — e.g. 'Software Engineer building AI-driven automation'"
+email: "utkarsh.tiwari@bigship.in"
+github_url: "REPLACE_ME — https://github.com/<handle>"
+linkedin_url: "REPLACE_ME — https://linkedin.com/in/<handle>"
+portfolio_url: null
+resume_path: "REPLACE_ME — path to resume PDF, used by the approval-queue UI"
+
+skills:
+  - "REPLACE_ME — e.g. Python"
+  - "REPLACE_ME — e.g. FastAPI"
+  - "REPLACE_ME — e.g. PostgreSQL"
+
+industries:
+  - "REPLACE_ME — e.g. FinTech"
+
+projects:
+  - name: "REPLACE_ME — project name"
+    description: "REPLACE_ME — one or two sentences on what it does and why it exists"
+    technologies: ["REPLACE_ME"]
+    outcome: "REPLACE_ME — a real, specific, checkable result (a number, a scale, a before/after)"
+    url: null
+
+achievements:
+  - "REPLACE_ME — a concrete, dated achievement"
+
+career_goals: "REPLACE_ME — one or two sentences, used to filter which roles A5 treats as strong fits"
+communication_style: "Direct, peer-to-peer, evidence-led — see the humanizer skill's voice conventions for the full standard this profile is written to match."
+
+open_to:
+  - "REPLACE_ME — e.g. Backend Engineer"
+  - "REPLACE_ME — e.g. AI/ML Engineer"

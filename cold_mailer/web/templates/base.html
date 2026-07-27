@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Cold Mailer{% endblock %}</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+           max-width: 900px; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
+    a { color: inherit; }
+    .card { border: 1px solid #8884; border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 1rem; }
+    .row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+    .badge { display: inline-block; padding: 0.1rem 0.5rem; border-radius: 999px; font-size: 0.8rem; }
+    .badge.high { background: #1a7f3722; color: #1a7f37; }
+    .badge.medium { background: #9a6c0022; color: #9a6c00; }
+    .badge.low { background: #8884; }
+    .badge.pass { background: #1a7f3722; color: #1a7f37; }
+    .badge.fail { background: #cf222e22; color: #cf222e; }
+    pre { white-space: pre-wrap; font-family: inherit; }
+    button { cursor: pointer; padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid #8884; background: transparent; }
+    button.approve { background: #1a7f37; color: white; border: none; }
+    button.reject { background: #cf222e; color: white; border: none; }
+    textarea, input[type=text] { width: 100%; font-family: inherit; padding: 0.5rem; box-sizing: border-box; }
+    .muted { opacity: 0.7; font-size: 0.9rem; }
+    .finding { font-size: 0.85rem; }
+    .finding.error { color: #cf222e; }
+    .finding.warning { color: #9a6c00; }
+  </style>
+</head>
+<body>
+  <p><a href="/">&larr; Approval queue</a></p>
+  {% block content %}{% endblock %}
+</body>
+</html>

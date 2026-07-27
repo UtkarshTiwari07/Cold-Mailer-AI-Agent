@@ -1,0 +1,31 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Local data — never commit recruiter lists or personal profile data
+data/*.xlsx
+data/*.xls
+data/*.csv
+!data/sample_leads.csv
+var/
+.cache/
+pagecache/
+
+# Secrets
+secrets/
+*.pem
+token.json
+credentials.json
+gmail_token.json
+
+# Tooling
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+htmlcov/
+.coverage
