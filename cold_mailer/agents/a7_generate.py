@@ -47,11 +47,19 @@ def _profile_grounding_texts() -> list[str]:
     company evidence would flag every true claim about the candidate's own
     work as "unverifiable" and burn regeneration cycles rewriting things
     that were already correct — which is exactly what happened before this
-    fix was added."""
+    fix was added.
+
+    Includes each project's `technologies` and the profile's top-level
+    `skills` — found missing during a live run where a citation naming a
+    project's tech stack ("Go, Redis, Kubernetes") was wrongly flagged
+    ungrounded because only description/outcome/achievement text was
+    included, not the technology lists themselves."""
     profile = load_profile()
     texts = [p.description for p in profile.projects] + [p.outcome or "" for p in profile.projects]
+    texts += [", ".join(p.technologies) for p in profile.projects]
     texts += profile.achievements
     texts.append(profile.headline)
+    texts.append(", ".join(profile.skills))
     return [t for t in texts if t]
 
 

@@ -32,7 +32,14 @@ swapped in.
 - Never restate the ask in a closing paragraph after already making it once.
 - Vary sentence length. At least one short sentence (under six words) per
   ~150 words — real writing doesn't run at one uniform cadence.
-- At most one em dash per email. No semicolons joining independent clauses.
+- At most one em dash per email. Specifically never the "— interjected
+  clause —" double-wrap pattern (opening a dash, inserting a clarifying
+  clause, closing with a second dash) — this is one of the single most
+  reliable AI-writing tells, and it is easy to reach for when describing a
+  technical achievement. If a sentence wants that shape, restructure it as
+  two plain sentences instead: "Your custom CI system caught my attention.
+  It orchestrates tens of thousands of test suites under a high security
+  bar." No semicolons joining independent clauses.
 
 ## Subject lines
 
